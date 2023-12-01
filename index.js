@@ -164,7 +164,7 @@ const getCountryData = async () => {
       load.style.display = "none";
     };
     sf.addEventListener("submit", handle);
-    search.addEventListener("input", handle);
+    // search.addEventListener("input", handle);
     console.log(dataJs[69]);
   } catch (error) {
     console.error("err", error);
