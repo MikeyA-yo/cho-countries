@@ -148,8 +148,7 @@ const getCountryData = async () => {
 
       for (const section of container.children) {
         const input = section.querySelector("h5").textContent.toLowerCase();
-        const include = await input.includes(st);
-        if (include) {
+        if (input.includes(st)) {
           section.scrollIntoView({ behavior: "smooth" });
           break;
         } else {
