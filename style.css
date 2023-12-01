@@ -1,0 +1,28 @@
+h1 {
+  text-align: center;
+}
+img {
+  max-height: 10rem;
+}
+.al {
+  text-align: center;
+  font-size: 3rem;
+  display: none;
+}
+.load {
+  width: 4rem;
+  height: 4rem;
+}
+.custom-nav {
+  min-width: 100%;
+  position: fixed;
+  z-index: 2;
+}
+.simg {
+  width: 100%;
+  height: 100%;
+}
+
+.in {
+  width: 200%;
+}
