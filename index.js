@@ -27,7 +27,7 @@ const getCountryData = async () => {
       var nNam = nName.eng ?? "none";
       var nNa = nNam.common ?? "none";
       var nN = nNam.official ?? "none";
-      var currencies = Object.values(dataJs[index].currencies);
+      var currencies = Object.values(dataJs[index].currencies) ?? "none";
       cur = currencies[0] ?? "none";
       cur.name ??= "none";
       cur.symbol ??= "none";
@@ -56,8 +56,6 @@ const getCountryData = async () => {
       container.appendChild(newDiv);
 
       const bttn = () => {
-        console.log("i got clicked");
-
         container.innerHTML = `
         <ul class="nav">
         <li class="nav-item">
@@ -124,6 +122,7 @@ const getCountryData = async () => {
         go.onclick = back;
       };
       button.onclick = bttn;
+      newDiv.onclick = bttn;
     });
 
     const dataDiv = Array.from(container.querySelectorAll("section"));
@@ -138,32 +137,39 @@ const getCountryData = async () => {
     dataDiv.forEach((item) => {
       container.appendChild(item);
     });
-    document.addEventListener("DOMContentLoaded", () => {
-      console.log("i got loaded");
-    });
+
     const handle = async (event) => {
       event.preventDefault();
       const st = search.value.toLowerCase();
       load.style.display = "block";
+      const dataDivf = dataDiv.filter((el) => {
+        console.log(el.id);
+        return el.id.toLowerCase().includes(st);
+      });
+      container.innerHTML = "";
+      dataDivf.forEach((item) => {
+        container.appendChild(item);
+      });
 
-      for (const section of container.children) {
-        const input = section.querySelector("h5").textContent.toLowerCase();
-        if (input.includes(st)) {
-          section.scrollIntoView({ behavior: "smooth" });
-          break;
-        } else {
-          var msg = document.querySelector(".al");
-          msg.style.display = "block";
-          setTimeout(() => {
-            msg.style.display = "none";
-          }, 4000);
-        }
-      }
+      // for (const section of container.children) {
+      //   const input = section.querySelector("h5").textContent.toLowerCase();
+      //   if (input.includes(st)) {
+      //     section.scrollIntoView({ behavior: "smooth" });
+      //     break;
+      //   } else {
+      //     var msg = document.querySelector(".al");
+      //     msg.style.display = "block";
+      //     setTimeout(() => {
+      //       msg.style.display = "none";
+      //     }, 4000);
+      //   }
+      //}
 
       load.style.display = "none";
     };
+
     sf.addEventListener("submit", handle);
-    // search.addEventListener("input", handle);
+    search.addEventListener("input", handle);
     console.log(dataJs[69]);
   } catch (error) {
     console.error("err", error);
