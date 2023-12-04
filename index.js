@@ -7,7 +7,7 @@ const getCountryData = async () => {
   try {
     load.style.display = "block";
     const data = await fetch(
-      "https://restcountries.com/v3.1/all?fields=name,capital,currencies,population,flags,region,subregion,borders"
+      "https://restcountries.com/v3.1/all?fields=name,capital,currencies,population,flags,region,subregion,borders,demonyms,idd,languages,maps,latlng,coatOfArms,callingCodes"
     );
     const dataJs = await data.json();
     load.style.display = "none";
@@ -38,6 +38,22 @@ const getCountryData = async () => {
       var borders = dataJs[index].borders ?? "none";
       var region = dataJs[index].region;
       var subregion = dataJs[index].subregion;
+      var idd = dataJs[index].idd;
+      var iddR = idd.root;
+      var iddS = idd.suffixes;
+      var callCode = iddR + iddS[0];
+      if (callCode.length > 4) {
+        callCode = iddR + "(" + iddS[0] + ")";
+      }
+      var dE = dataJs[index].demonyms.eng;
+      var deF = dE.f;
+      var deM = dE.m;
+      var lat = dataJs[index].latlng[0];
+      var lng = dataJs[index].latlng[1];
+      var maps = dataJs[index].maps.googleMaps;
+      var languages = Object.values(dataJs[index].languages) ?? "none";
+      var coat = dataJs[index].coatOfArms.png;
+      console.log(coat);
       newDiv.id = `${cName}`;
       button.classList.add("btn");
       button.classList.add("btn-primary");
@@ -102,7 +118,11 @@ const getCountryData = async () => {
                       Population:${population}<br />Borders: ${borders}<br />
                       Region: ${region}<br />
                       Sub-region: ${subregion}.
+                      <br> Call Code: ${callCode}<br>Nationality: <br>Female:${deF}, Male:${deM}
+                      <br>Latitide: ${lat}<br>Longtitude: ${lng} <br> <a href="${maps}" target="_blank" >View live map</a><br>Languages: ${languages}<br>Coat of Arms:<br>
+                      <img src="${coat}" class="card-img-top" stlye="width:7px" alt="coat of Arms of ${cName}" />
                     </p>
+                    
                     <footer class="blockquote-footer m-3">
                       Made with 💖 in Lagos
                       <cite title="Source Title">CHO</cite>
@@ -138,7 +158,7 @@ const getCountryData = async () => {
       container.appendChild(item);
     });
 
-    const handle = async (event) => {
+    const handle = (event) => {
       event.preventDefault();
       const st = search.value.toLowerCase();
       load.style.display = "block";
@@ -150,32 +170,22 @@ const getCountryData = async () => {
       dataDivf.forEach((item) => {
         container.appendChild(item);
       });
-
-      // for (const section of container.children) {
-      //   const input = section.querySelector("h5").textContent.toLowerCase();
-      //   if (input.includes(st)) {
-      //     section.scrollIntoView({ behavior: "smooth" });
-      //     break;
-      //   } else {
-      //     var msg = document.querySelector(".al");
-      //     msg.style.display = "block";
-      //     setTimeout(() => {
-      //       msg.style.display = "none";
-      //     }, 4000);
-      //   }
-      //}
+      if (dataDivf == 0) {
+        var msg = document.querySelector(".al");
+        msg.style.display = "block";
+        setTimeout(() => {
+          msg.style.display = "none";
+        }, 4000);
+      }
 
       load.style.display = "none";
     };
 
     sf.addEventListener("submit", handle);
     search.addEventListener("input", handle);
-    console.log(dataJs[69]);
+    console.log(dataJs[69], dataJs[90]);
   } catch (error) {
     console.error("err", error);
   }
 };
 getCountryData();
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("loaded sucessfully");
-});
