@@ -163,7 +163,6 @@ const getCountryData = async () => {
       const st = search.value.toLowerCase();
       load.style.display = "block";
       const dataDivf = dataDiv.filter((el) => {
-        console.log(el.id);
         return el.id.toLowerCase().includes(st);
       });
       container.innerHTML = "";
@@ -175,7 +174,7 @@ const getCountryData = async () => {
         msg.style.display = "block";
         setTimeout(() => {
           msg.style.display = "none";
-        }, 4000);
+        }, 2000);
       }
 
       load.style.display = "none";
@@ -183,7 +182,7 @@ const getCountryData = async () => {
 
     sf.addEventListener("submit", handle);
     search.addEventListener("input", handle);
-    console.log(dataJs[69], dataJs[90]);
+    console.log(dataJs[69]);
   } catch (error) {
     console.error("err", error);
   }
