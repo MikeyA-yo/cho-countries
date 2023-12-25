@@ -20,7 +20,7 @@ const getCountryData = async () => {
       newDiv.classList.add("col");
       newDiv.classList.add("bg-light");
 
-      var capital = dataJs[index].capital[0];
+      var capital = dataJs[index].capital[0] || "none";
       var cName = dataJs[index].name.common;
       var oName = dataJs[index].name.official;
       var nName = dataJs[index].name.nativeName ?? "none";
