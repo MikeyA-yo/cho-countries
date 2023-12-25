@@ -27,12 +27,12 @@ const getCountryData = async () => {
       var nNam = nName.eng ?? "none";
       var nNa = nNam.common ?? "none";
       var nN = nNam.official ?? "none";
-      var currencies = Object.values(dataJs[index].currencies) | "none";
-      cur = currencies[0]  | "none";
+      var currencies = Object.values(dataJs[index].currencies) || "none";
+      cur = currencies[0]  || "none";
       cur.name ??= "none";
       cur.symbol ??= "none";
-      var curName = cur.name | "none";
-      var curSym = cur.symbol | "none";
+      var curName = cur.name || "none";
+      var curSym = cur.symbol || "none";
       var population = dataJs[index].population;
       var flag = dataJs[index].flags.png;
       var borders = dataJs[index].borders ?? "none";
